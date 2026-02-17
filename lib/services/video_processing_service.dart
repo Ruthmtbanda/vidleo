@@ -56,27 +56,24 @@ class VideoProcessingService {
     final durationMatch = RegExp(r'Duration: (\d+):(\d+):(\d+\.\d+)')
         .firstMatch(mediaInfo);
 
-    final double durationSeconds = durationMatch == null
+    final durationSeconds = durationMatch == null
         ? 300.0
-        : (int.parse(durationMatch.group(1)!) * 3600 +
-                int.parse(durationMatch.group(2)!) * 60 +
-                double.parse(durationMatch.group(3)!))
-            .toDouble();
+        : int.parse(durationMatch.group(1)!) * 3600 +
+            int.parse(durationMatch.group(2)!) * 60 +
+            double.parse(durationMatch.group(3)!);
 
-    final int clipCountEstimate =
-        (durationSeconds / clipDurationSeconds).floor();
+    final clipCountEstimate = (durationSeconds / clipDurationSeconds).floor();
     final clips = <ClipOption>[];
 
     for (var i = 0; i < clipCountEstimate; i++) {
-      final double start = (i * clipDurationSeconds).toDouble();
-      final double end =
-          (start + clipDurationSeconds).clamp(0, durationSeconds).toDouble();
+      final start = (i * clipDurationSeconds).toDouble();
+      final end = (start + clipDurationSeconds).clamp(0, durationSeconds);
       clips.add(
         ClipOption(
           id: _uuid.v4(),
           startSeconds: start,
           endSeconds: end,
-          score: ((clipCountEstimate - i) / clipCountEstimate).toDouble(),
+          score: (clipCountEstimate - i) / clipCountEstimate,
           reason: i < 10
               ? 'Top highlight candidate (audio + scene + transcript hook)'
               : 'Additional candidate from full analysis timeline',
