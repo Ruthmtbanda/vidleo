@@ -13,6 +13,7 @@ class SettingsScreen extends StatefulWidget {
 }
 
 class _SettingsScreenState extends State<SettingsScreen> {
+  late VideoAspectRatio _ratio;
   late double _count;
   late double _duration;
 
@@ -20,12 +21,14 @@ class _SettingsScreenState extends State<SettingsScreen> {
   void initState() {
     super.initState();
     final current = widget.settings.settings;
+    _ratio = current.aspectRatio;
     _count = current.shortsCount.toDouble();
     _duration = current.clipDurationSeconds.toDouble();
   }
 
   Future<void> _save() async {
     final next = AppSettings(
+      aspectRatio: _ratio,
       shortsCount: _count.toInt(),
       clipDurationSeconds: _duration.toInt().clamp(30, 60),
     );
@@ -43,7 +46,13 @@ class _SettingsScreenState extends State<SettingsScreen> {
         children: [
           Text('Aspect Ratio', style: Theme.of(context).textTheme.titleMedium),
           const SizedBox(height: 8),
-          const Text('9:16 (Fixed for shorts output)'),
+          SegmentedButton<VideoAspectRatio>(
+            segments: VideoAspectRatio.values
+                .map((r) => ButtonSegment(value: r, label: Text(r.label)))
+                .toList(),
+            selected: {_ratio},
+            onSelectionChanged: (value) => setState(() => _ratio = value.first),
+          ),
           const SizedBox(height: 24),
           Text('Number of shorts: ${_count.toInt()}'),
           Slider(

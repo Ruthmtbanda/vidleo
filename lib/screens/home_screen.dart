@@ -53,7 +53,6 @@ class _HomeScreenState extends State<HomeScreen> {
     Navigator.pushNamed(context, ProcessingScreen.route);
   }
 
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -99,7 +98,7 @@ class _HomeScreenState extends State<HomeScreen> {
               builder: (context, _) {
                 final current = widget.settings.settings;
                 return Text(
-                  'Shorts format: 9:16 (fixed), '
+                  'Current settings: ${current.aspectRatio.label}, '
                   '${current.shortsCount} shorts, '
                   '${current.clipDurationSeconds}s each',
                 );

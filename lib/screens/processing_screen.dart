@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:vidleo/models/app_settings.dart';
 import 'package:vidleo/screens/shorts_screen.dart';
 import 'package:vidleo/services/app_scope.dart';
 import 'package:vidleo/services/settings_controller.dart';
@@ -44,7 +43,7 @@ class _ProcessingScreenState extends State<ProcessingScreen> {
         final render = await AppScope.videoService.renderClip(
           inputPath: input,
           option: clip,
-          ratio: VideoAspectRatio.ratio9x16,
+          ratio: widget.settings.settings.aspectRatio,
         );
         generated.add(render);
         state.updateProgress(
