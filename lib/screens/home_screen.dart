@@ -1,7 +1,6 @@
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:permission_handler/permission_handler.dart';
-import 'package:vidleo/models/app_settings.dart';
 import 'package:vidleo/models/video_source.dart';
 import 'package:vidleo/screens/processing_screen.dart';
 import 'package:vidleo/screens/settings_screen.dart';
@@ -54,18 +53,6 @@ class _HomeScreenState extends State<HomeScreen> {
     Navigator.pushNamed(context, ProcessingScreen.route);
   }
 
-
-  String _aspectLabel(VideoAspectRatio ratio) {
-    switch (ratio) {
-      case VideoAspectRatio.ratio9x16:
-        return '9:16';
-      case VideoAspectRatio.ratio16x9:
-        return '16:9';
-      case VideoAspectRatio.ratio1x1:
-        return '1:1';
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -111,7 +98,7 @@ class _HomeScreenState extends State<HomeScreen> {
               builder: (context, _) {
                 final current = widget.settings.settings;
                 return Text(
-                  'Current settings: ${_aspectLabel(current.aspectRatio)}, '
+                  'Current settings: ${current.aspectRatio.label}, '
                   '${current.shortsCount} shorts, '
                   '${current.clipDurationSeconds}s each',
                 );

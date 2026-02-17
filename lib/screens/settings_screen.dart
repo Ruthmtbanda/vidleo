@@ -48,7 +48,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
           const SizedBox(height: 8),
           SegmentedButton<VideoAspectRatio>(
             segments: VideoAspectRatio.values
-                .map((r) => ButtonSegment(value: r, label: Text(aspectRatioLabel(r))))
+                .map((r) => ButtonSegment(value: r, label: Text(r.label)))
                 .toList(),
             selected: {_ratio},
             onSelectionChanged: (value) => setState(() => _ratio = value.first),
