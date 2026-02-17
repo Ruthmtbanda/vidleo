@@ -67,8 +67,7 @@ class VideoProcessingService {
 
     for (var i = 0; i < clipCountEstimate; i++) {
       final start = (i * clipDurationSeconds).toDouble();
-      final end =
-          (start + clipDurationSeconds).clamp(0, durationSeconds).toDouble();
+      final end = (start + clipDurationSeconds).clamp(0, durationSeconds);
       clips.add(
         ClipOption(
           id: _uuid.v4(),

@@ -1,7 +1,6 @@
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:permission_handler/permission_handler.dart';
-import 'package:vidleo/models/app_settings.dart';
 import 'package:vidleo/models/video_source.dart';
 import 'package:vidleo/screens/processing_screen.dart';
 import 'package:vidleo/screens/settings_screen.dart';
